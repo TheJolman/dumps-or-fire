@@ -125,9 +125,18 @@ body {
     padding: 20px;
     margin-top: 20px;
     text-align: center;
-    font-family: 'gotham';
 }
 
 .image-container {
     text-align: center;
+}
+
+.image-container img {
+  display: inline-block;
+  width: 40%;
+  border: 2px solid black;
+}
+
+.form-group {
+  margin-top: 20px;
 }

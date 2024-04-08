@@ -2,48 +2,56 @@
     "A": 
         {
             "Track" : "Not bad. This track is super popular right now so it's definitely good, but it's pretty basic.",
+            "Album" : "This album is super hot right now and it definitely has a lot of hits! You can't go wrong with putting this on the aux.",
             "Reaction" : "hot.png"
         }
     ,
     "B": 
         {
             "Track": "This track is great! Although it's not the most popular song, a good amount of listeners think this track smacks.",
+            "Album" : "Fire! This album has potential to be a classic and shows an excellent taste in music.",
             "Reaction" : "fire.png"
         }
     ,
     "C": 
         {
             "Track": "This track is nice! It's popularity shows that you must have a unique taste in music.",
+            "Album" : "This album has some heat and is worth going back to, with only a few skips.",
             "Reaction" : "exquisite.png"
         }
     ,
     "D":
         {
             "Track": "This track could be better, however it's most likely worth a listen!",
+            "Album" : "It's alright. There are some stand out songs on this album, but it falls short of its concept.",
             "Reaction" : "nice.png"
         }
     ,
     "F":
         {
             "Track": "This song is not that popular and it leaves a lot to be desired.",
+            "Album" : "Chances are this album is slept on; a hidden gem perhaps. This shows unique and cultured taste in music.",
             "Reaction" : "boring.png"
         }
     ,
     "G":
         {
             "Track": "This is unpopular for a reason... it's probably not worth listening to.",
+            "Album" : "Yeah, this album is not good. It might have once decent track, but other than that, it's not worth the time.",
             "Reaction" : "unimpressed.png"
         }
     ,
     "H":
         {
             "Track": "This song is straight trash, maybe try listening to Spotify's top 50 for better inspiration.",
+            "Album" : "This album is garbage; there are way too many skips and misses in this track list.",
             "Reaction" : "bruh.png"
         }
     ,
     "Z":
         {
             "Track": "...",
+            "Album" : "Skip the dumpster, this album goes straight to the landfill...",
             "Reaction" : "what.png"
         }
 }

@@ -17,6 +17,10 @@ def rate(request):
         user_input = request.POST.get('user_input')
         search_type = request.POST.get('search_type')
 
+        if len(user_input) > 50:
+            context['error'] = "Search query too long, please try again with a shorter query."
+            return render(request, 'spotify/rate.html', context)
+
         # set default search type if none provided
         if not search_type:
             search_type = 'album'

@@ -17,6 +17,10 @@ def rate(request):
         user_input = request.POST.get('user_input')
         search_type = request.POST.get('search_type')
 
+        if len(user_input) > 50:
+            context['error'] = "Search query too long, please try again with a shorter query."
+            return render(request, 'spotify/rate.html', context)
+
         # set default search type if none provided
         if not search_type:
             search_type = 'album'
@@ -29,7 +33,7 @@ def rate(request):
                 '''get rating from api and description from json file'''
                 context['rating'] = gr.get_track_popularity(user_input)
 
-                desc, img = fr.format_rating(gr.get_track_popularity(user_input))
+                desc, img = fr.format_rating(gr.get_track_popularity(user_input), type = 'Track')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -44,7 +48,7 @@ def rate(request):
             if gr.get_album_popularity(user_input) is not None:
                 context['rating'] = gr.get_album_popularity(user_input)
 
-                desc, img = fr.format_rating(gr.get_album_popularity(user_input))
+                desc, img = fr.format_rating(gr.get_album_popularity(user_input), type = 'Album')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"

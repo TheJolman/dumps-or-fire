@@ -52,7 +52,7 @@
         <div class="rating-box">
             <p><span style="font-family: 'circular'">Popularity Rating:</span></p>
             <h2>{{ rating }}/100</h2>
-            <br><img src={{ reaction }} alt="alt text">
+            <br><img id="HideImg" src={{ reaction }} alt="alt text" onerror="hideImg()">
             
             <h2 style="font-family: 'circular'">{{ description }}</h2>
         </div>
@@ -61,7 +61,7 @@
         <!-- insert image here -->
         <div class="image-container">
             <br><h2 style="font-family: 'circular'"> {{ name }} </h2>
-            <img src={{ image }} alt="alt text">
+            <img id="HideImg2" src={{ image }} alt="alt text" onerror="hideImg2()">
         </div>
 
     </div>
@@ -70,7 +70,16 @@
         <div class="inner">
           <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
         </div>
-      </footer>
+    </footer>
+    <script>
+        function hideImg() {
+            document.getElementById("HideImg").style.display = "none";
+        }
+
+        function hideImg2() {
+            document.getElementById("HideImg2").style.display = "none";
+        }
+    </script>
     <!-- Include Bootstrap JS and its dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>

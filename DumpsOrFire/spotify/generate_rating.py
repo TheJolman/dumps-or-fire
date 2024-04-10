@@ -37,7 +37,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 
-"""Get Track Data"""
+"""==================Get Track Data===================="""
 def get_track_popularity(track_name: str):
     if track_name == "":
         return None
@@ -64,7 +64,7 @@ def get_track_image(track_name: str):
     return track_result["album"]["images"][0]["url"]
 
 
-"""Get Album Data"""
+"""==================Get Album Data===================="""
 def get_album_popularity(album_name: str):
     if album_name == "":
         return None

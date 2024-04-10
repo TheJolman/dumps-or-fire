@@ -66,7 +66,7 @@ def rate(request):
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
-                # context['image'] = gr.get_album_image(user_input)
-                # context['name'] = gr.get_album_name(user_input)
+                context['image'] = gr.get_playlist_image(user_input)
+                context['name'] = gr.get_playlist_name(user_input)
 
     return render(request, 'spotify/rate.html', context)

@@ -103,6 +103,7 @@ def get_album_name(album_name: str):
     return album_result["name"]
 
 
+"""==================Get Playlist Data================="""
 def get_playlist_popularity(playlist_name: str):
     if playlist_name == "":
         return None
@@ -137,7 +138,15 @@ def get_playlist_image(playlist_name: str):
     playlist_result = user_search(token, playlist_name, "playlist")
     if not playlist_result:
         return None
+    return playlist_result["images"][0]["url"]
     
+
+def get_playlist_name(playlist_name: str):
+    token = get_token()
+    playlist_result = user_search(token, playlist_name, "playlist")
+    if not playlist_result:
+        return None
+    return playlist_result["name"]
 
 
 def user_search(token, track_name, search_type = "track"):

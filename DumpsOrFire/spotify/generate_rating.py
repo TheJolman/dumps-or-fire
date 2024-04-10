@@ -6,6 +6,8 @@ import json
 
 from django.conf import settings
 
+from . import url_parser as up # user up.get_url_id(url) to get playlist/song/album id
+
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
 # client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)

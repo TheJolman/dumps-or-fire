@@ -6,7 +6,8 @@ import json
 
 from django.conf import settings
 
-from . import url_parser as up # user up.get_url_id(url) to get playlist/song/album id
+from . import url_parser as up # userup.get_url_id(url) to get playlist/song/album id
+                               # userup.get_url_type(url) to get playlist/song/album type (returns str) 
 
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET

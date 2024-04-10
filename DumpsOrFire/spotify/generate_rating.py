@@ -6,6 +6,8 @@ import json
 
 from django.conf import settings
 
+from . import url_parser as up # user up.get_url_id(url) to get playlist/song/album id
+
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
 # client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
@@ -35,7 +37,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 
-"""Get Track Data"""
+"""==================Get Track Data===================="""
 def get_track_popularity(track_name: str):
     if track_name == "":
         return None
@@ -62,7 +64,7 @@ def get_track_image(track_name: str):
     return track_result["album"]["images"][0]["url"]
 
 
-"""Get Album Data"""
+"""==================Get Album Data===================="""
 def get_album_popularity(album_name: str):
     if album_name == "":
         return None

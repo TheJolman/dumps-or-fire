@@ -56,4 +56,17 @@ def rate(request):
                 context['image'] = gr.get_album_image(user_input)
                 context['name'] = gr.get_album_name(user_input)
 
+        elif search_type == 'playlist':
+            # playlist search
+            if gr.get_playlist_popularity(user_input) is not None:
+                context['rating'] = gr.get_playlist_popularity(user_input)
+
+                desc, img = fr.format_rating(gr.get_playlist_popularity(user_input), type = 'Album')
+
+                context['description'] =  desc
+                context['reaction'] = f"static/spotify/rating_reaction/{img}"
+
+                # context['image'] = gr.get_album_image(user_input)
+                # context['name'] = gr.get_album_name(user_input)
+
     return render(request, 'spotify/rate.html', context)

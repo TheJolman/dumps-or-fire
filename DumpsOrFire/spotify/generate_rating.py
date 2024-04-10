@@ -68,13 +68,12 @@ def get_album_popularity(album_name: str):
         return None
     token = get_token()
     album_result = user_search(token, album_name, "album")
-    album_id = album_result["id"]
-
     if not album_result:
         return None
     
-    # https://api.spotify.com/v1/albums/4Hjqdhj5rh816i1dfcUEaM
-    """ Search for a track and return items associated with track """
+    album_id = album_result["id"]
+    
+    """ Search for an album and return items associated with album """
     url = "https://api.spotify.com/v1/albums"
     headers = get_auth_header(token)
     query = f"/{album_id}"
@@ -102,14 +101,41 @@ def get_album_name(album_name: str):
     return album_result["name"]
 
 
-
-
 def get_playlist_popularity(playlist_name: str):
+    if playlist_name == "":
+        return None
     token = get_token()
     playlist_result = user_search(token, playlist_name, "playlist")
-    ...
+    if not playlist_result:
+        return None
+    
+    playlist_id = playlist_result["id"]
+
+    """ Search for a playlist and return items associated with playlist """
+    url = "https://api.spotify.com/v1/playlists"
+    headers = get_auth_header(token)
+    query = f"/{playlist_id}"
+
+    query_url = url + query
+    result = get(query_url, headers=headers)
+    json_result = json.loads(result.content)
+
+    sum = 0
+    num_tracks = 0
+    for track in json_result["tracks"]["items"]:
+        result = track["track"]
+        sum += result["popularity"]
+        num_tracks += 1
+
+    return sum // num_tracks
 
 
+def get_playlist_image(playlist_name: str):
+    token = get_token()
+    playlist_result = user_search(token, playlist_name, "playlist")
+    if not playlist_result:
+        return None
+    
 
 
 def user_search(token, track_name, search_type = "track"):
@@ -127,3 +153,7 @@ def user_search(token, track_name, search_type = "track"):
         return None
     
     return json_result[0]
+
+
+# print(get_playlist_popularity("Top 50 - USA"))
+# print(get_playlist_popularity("VAPORWAVE CLASSICS"))

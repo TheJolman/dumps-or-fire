@@ -15,7 +15,7 @@
 <body class="text-center">
 
   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-    <header class="header mb-auto">
+    <header class="header">
       <div class="inner">
         <h3 class="header-top">Dumps Or Fire</h3>
         <nav class="nav nav-bar justify-content-center">
@@ -26,45 +26,49 @@
     </header>
     
     <main role="main" class="inner cover">
-    <div class="container">
-        <form method="POST" action="{% url 'rate' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <input type="text" class="form-control" id="searchInput" name="user_input" placeholder="Enter a query..." autofocus>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="{% url 'rate' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="searchInput" name="user_input" placeholder="Enter a query..." autofocus>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="search_type">
+                            <option value="track" {% if search_type == 'track' %}selected{% endif %}>Search by track</option>
+                            <option value="album" {% if search_type == 'album' %}selected{% endif %}>Search by album</option>
+                            <option value="playlist" {% if search_type == 'playlist' %}selected{% endif %}>Search by playlist</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Generate Rating</button>
+                </form>
+                <br>
             </div>
-            <div class="form-group">
-                <select class="form-control" name="search_type">
-                    <option value="track" {% if search_type == 'track' %}selected{% endif %}>Search by track</option>
-                    <option value="album" {% if search_type == 'album' %}selected{% endif %}>Search by album</option>
-                    <option value="playlist" {% if search_type == 'playlist' %}selected{% endif %}>Search by playlist</option>
-                </select>
+            <div class="col">
+                <!-- Error message display -->
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <p>Error: {{ error }}</p>
+                </div>
+                {% else %}
+                <div class="rating-box">
+                    <p><span style="font-family: 'circular'">Popularity Rating:</span></p>
+                    <h2>{{ rating }}/100</h2>
+                    <br><img id="HideImg" src={{ reaction }} alt="alt text" onerror="hideImg()" width="50%" height="50%">
+                    
+                    <p style="font-family: 'circular'">{{ description }}</p>
+                </div>
+                {% endif %}
+
             </div>
-            <button type="submit" class="btn btn-secondary">Generate Rating</button>
-        </form>
-        <br>
-
-        <!-- Error message display -->
-        {% if error %}
-        <div class="alert alert-danger" role="alert">
-            <p>Error: {{ error }}</p>
-        </div>
-        {% else %}
-        <div class="rating-box">
-            <p><span style="font-family: 'circular'">Popularity Rating:</span></p>
-            <h2>{{ rating }}/100</h2>
-            <br><img id="HideImg" src={{ reaction }} alt="alt text" onerror="hideImg()" width="50%" height="50%">
-            
-            <h2 style="font-family: 'circular'">{{ description }}</h2>
-        </div>
-        {% endif %}
-
-        <!-- insert image here -->
-        <div class="image-container">
-            <br><h2 style="font-family: 'circular'"> {{ name }} </h2>
-            <img id="HideImg2" src={{ image }} alt="alt text" onerror="hideImg2()">
-        </div>
-
+            <!-- insert image here -->
+            <div class="image-container">
+                <br><h2 style="font-family: 'circular'"> {{ name }} </h2>
+                <img id="HideImg2" src={{ image }} alt="alt text" onerror="hideImg2()">
+            </div>
     </div>
+    </main>
 
     <footer class="footer mt-auto">
         <div class="inner">

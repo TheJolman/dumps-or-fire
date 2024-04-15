@@ -3,7 +3,7 @@
         {
             "Track" : "Not bad. This track is super popular right now so it's definitely good, but it's pretty basic.",
             "Album" : "This album is super hot right now and it definitely has a lot of hits! You can't go wrong with putting this on the aux.",
-            "Playlist" : "Super popular playlist... like breathing air is popular.",
+            "Playlist" : "Super popular playlist... but breathing air is popular.",
             "Reaction" : "hot.png"
         }
     ,
@@ -36,7 +36,7 @@
             "Track": "This song is not that popular and it leaves a lot to be desired.",
             "Album" : "Chances are this album is slept on; a hidden gem perhaps. This shows unique and cultured taste in music... Or it's boring.",
             "Playlist" : "Trash. This playlist only has mid, and is probably best listened to in the trash.",
-            "Reaction" : "boring.png"
+            "Reaction" : "displeased.png"
         }
     ,
     "G":

@@ -55,6 +55,9 @@ def rate(request):
 
                 context['image'] = gr.get_album_image(user_input)
                 context['name'] = gr.get_album_name(user_input)
+            else:
+                context['error'] = f"No result with name {user_input} found."
+
 
         elif search_type == 'playlist':
             # playlist search
@@ -68,5 +71,7 @@ def rate(request):
 
                 context['image'] = gr.get_playlist_image(user_input)
                 context['name'] = gr.get_playlist_name(user_input)
+            else:
+                context['error'] = f"No result with name {user_input} found."
 
     return render(request, 'spotify/rate.html', context)

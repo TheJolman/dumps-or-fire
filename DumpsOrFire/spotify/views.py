@@ -29,11 +29,12 @@ def rate(request):
 
         if search_type == 'track':
             # track search
-            if gr.get_track_popularity(user_input) is not None:
+            result = gr.get_track_popularity(user_input)
+            if result is not None:
                 '''get rating from api and description from json file'''
-                context['rating'] = gr.get_track_popularity(user_input)
+                context['rating'] = result
 
-                desc, img = fr.format_rating(gr.get_track_popularity(user_input), type = 'Track')
+                desc, img = fr.format_rating(result, type = 'Track')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -45,10 +46,11 @@ def rate(request):
 
         elif search_type == 'album':
             # album search
-            if gr.get_album_popularity(user_input) is not None:
-                context['rating'] = gr.get_album_popularity(user_input)
+            result = gr.get_album_popularity(user_input)
+            if result is not None:
+                context['rating'] = result
 
-                desc, img = fr.format_rating(gr.get_album_popularity(user_input), type = 'Album')
+                desc, img = fr.format_rating(result, type = 'Album')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -61,10 +63,11 @@ def rate(request):
 
         elif search_type == 'playlist':
             # playlist search
-            if gr.get_playlist_popularity(user_input) is not None:
-                context['rating'] = gr.get_playlist_popularity(user_input)
+            result = gr.get_playlist_popularity(user_input)
+            if result is not None:
+                context['rating'] = result
 
-                desc, img = fr.format_rating(gr.get_playlist_popularity(user_input), type = 'Playlist')
+                desc, img = fr.format_rating(result, type = 'Playlist')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"

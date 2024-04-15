@@ -4,6 +4,7 @@ from . import generate_rating as gr
 # from django.http import JsonResponse
 
 from . import format_rating as fr
+from . import url_parser as up
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ def rate(request):
         user_input = request.POST.get('user_input')
         search_type = request.POST.get('search_type')
 
-        if len(user_input) > 50:
+        if len(user_input) > 50 and search_type != 'link':
             context['error'] = "Search query too long, please try again with a shorter query."
             return render(request, 'spotify/rate.html', context)
 
@@ -73,5 +74,11 @@ def rate(request):
                 context['name'] = gr.get_playlist_name(user_input)
             else:
                 context['error'] = f"No result with name {user_input} found."
+
+        elif search_type == 'link':
+            # link search
+            s_type = up.get_url_type(user_input)
+            id = up.get_url_id(user_input)
+
 
     return render(request, 'spotify/rate.html', context)

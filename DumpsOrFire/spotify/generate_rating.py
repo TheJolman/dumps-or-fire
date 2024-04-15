@@ -39,14 +39,29 @@ def get_auth_header(token):
 
 
 """==================Get Track Data===================="""
-def get_track_popularity(track_name: str):
+def get_track_popularity(track_name: str, id = ""):
     if track_name == "":
         return None
     token = get_token()
     track_result = user_search(token, track_name, "track")
     if not track_result:
         return None
-    return track_result["popularity"]
+
+    if id != "":
+        track_id = id
+    else: 
+        track_id = track_result["id"]
+
+    """ Search for an track and return items associated with track """
+    url = "https://api.spotify.com/v1/tracks"
+    headers = get_auth_header(token)
+    query = f"/{track_id}"
+
+    query_url = url + query
+    result = get(query_url, headers=headers)
+    json_result = json.loads(result.content)
+
+    return json_result['popularity']
 
 
 def get_track_name(track_name: str):
@@ -66,7 +81,7 @@ def get_track_image(track_name: str):
 
 
 """==================Get Album Data===================="""
-def get_album_popularity(album_name: str):
+def get_album_popularity(album_name: str, id = ""):
     if album_name == "":
         return None
     token = get_token()
@@ -74,7 +89,10 @@ def get_album_popularity(album_name: str):
     if not album_result:
         return None
     
-    album_id = album_result["id"]
+    if id != "":
+        album_id = id
+    else:
+        album_id = album_result["id"]
     
     """ Search for an album and return items associated with album """
     url = "https://api.spotify.com/v1/albums"
@@ -105,7 +123,7 @@ def get_album_name(album_name: str):
 
 
 """==================Get Playlist Data================="""
-def get_playlist_popularity(playlist_name: str):
+def get_playlist_popularity(playlist_name: str, id = ""):
     if playlist_name == "":
         return None
     token = get_token()
@@ -113,7 +131,10 @@ def get_playlist_popularity(playlist_name: str):
     if not playlist_result:
         return None
     
-    playlist_id = playlist_result["id"]
+    if id != "":
+        playlist_id = id
+    else:
+        playlist_id = playlist_result["id"]
 
     """ Search for a playlist and return items associated with playlist """
     url = "https://api.spotify.com/v1/playlists"

@@ -40,7 +40,7 @@ def get_auth_header(token):
 
 """==================Get Track Data===================="""
 def get_track_popularity(track_name: str, id = ""):
-    if track_name == "":
+    if track_name == "" and id == "":
         return None
     token = get_token()
     track_result = user_search(token, track_name, "track")

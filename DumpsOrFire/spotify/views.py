@@ -30,11 +30,12 @@ def rate(request):
 
         if search_type == 'track':
             # track search
-            if gr.get_track_popularity(user_input) is not None:
+            result = gr.get_track_popularity(user_input)
+            if result is not None:
                 '''get rating from api and description from json file'''
-                context['rating'] = gr.get_track_popularity(user_input)
+                context['rating'] = result
 
-                desc, img = fr.format_rating(gr.get_track_popularity(user_input), type = 'Track')
+                desc, img = fr.format_rating(result, type = 'Track')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -79,6 +80,15 @@ def rate(request):
             # link search
             s_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)
+
+            if s_type == 'track':
+                result = gr.get_track_popularity("", id=id)
+                context['rating'] = result
+
+                desc, img = fr.format_rating(result, type = 'Track')
+                context['description'] =  desc
+                context['reaction'] = f"static/spotify/rating_reaction/{img}"
+
 
 
     return render(request, 'spotify/rate.html', context)

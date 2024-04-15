@@ -49,6 +49,10 @@ body {
     color:rgb(231, 132, 11);
 }
 
+.circular-text {
+  font-family: 'circular';
+}
+
 body {
   display: -ms-flexbox;
   display: -webkit-box;
@@ -63,6 +67,7 @@ body {
 
 .cover-container {
   max-width: 42em;
+  margin: auto;
 }
 
 
@@ -133,7 +138,7 @@ body {
 
 .image-container img {
   display: inline-block;
-  width: 40%;
+  width: 100%;
   border: 2px solid black;
 }
 

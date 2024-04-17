@@ -38,137 +38,63 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 
-"""==================Get Track Data===================="""
-def get_track_popularity(track_name: str, id = ""):
-    if track_name == "" and id == "":
+def get_popularity(content_type = "track", content_name = "", input_id = ""):
+    if content_name == "" and input_id == "":
         return None
+    
     token = get_token()
-    track_result = user_search(token, track_name, "track")
-    if not track_result:
-        return None
-
-    if id != "":
-        track_id = id
-    else: 
-        track_id = track_result["id"]
+    if content_name != "" and input_id == "":
+        result = user_search(token, content_name, search_type=content_type)
+        id = result["id"]
+    else:
+        id = input_id
 
     """ Search for an track and return items associated with track """
-    url = "https://api.spotify.com/v1/tracks"
+    url = f"https://api.spotify.com/v1/{content_type}s"
     headers = get_auth_header(token)
-    query = f"/{track_id}"
+    query = f"/{id}"
 
     query_url = url + query
     result = get(query_url, headers=headers)
     json_result = json.loads(result.content)
+
+    if content_type == "playlist":
+        return get_avg_popularity(result, json_result)
 
     return json_result['popularity']
-
-
-def get_track_name(track_name: str):
-    token = get_token()
-    track_result = user_search(token , track_name, "track")
-    name = track_result['name'] + ' - ' + track_result['artists'][0]['name']
-    if not track_result:
-        return None
-    return name
-
-def get_track_image(track_name: str):
-    token = get_token()
-    track_result = user_search(token , track_name, "track")
-    if not track_result:
-        return None
-    return track_result["album"]["images"][0]["url"]
-
-
-"""==================Get Album Data===================="""
-def get_album_popularity(album_name: str, id = ""):
-    if album_name == "":
-        return None
-    token = get_token()
-    album_result = user_search(token, album_name, "album")
-    if not album_result:
-        return None
     
-    if id != "":
-        album_id = id
-    else:
-        album_id = album_result["id"]
-    
-    """ Search for an album and return items associated with album """
-    url = "https://api.spotify.com/v1/albums"
-    headers = get_auth_header(token)
-    query = f"/{album_id}"
 
-    query_url = url + query
-    result = get(query_url, headers=headers)
-    json_result = json.loads(result.content)
-
-    return json_result['popularity']
-
-
-def get_album_image(album_name: str):
-    token = get_token()
-    album_result = user_search(token, album_name, "album")
-    if not album_result:
-        return None
-    return album_result["images"][0]["url"]
-
-
-def get_album_name(album_name: str):
-    token = get_token()
-    album_result = user_search(token, album_name, "album")
-    if not album_result:
-        return None
-    return album_result["name"]
-
-
-"""==================Get Playlist Data================="""
-def get_playlist_popularity(playlist_name: str, id = ""):
-    if playlist_name == "":
-        return None
-    token = get_token()
-    playlist_result = user_search(token, playlist_name, "playlist")
-    if not playlist_result:
-        return None
-    
-    if id != "":
-        playlist_id = id
-    else:
-        playlist_id = playlist_result["id"]
-
-    """ Search for a playlist and return items associated with playlist """
-    url = "https://api.spotify.com/v1/playlists"
-    headers = get_auth_header(token)
-    query = f"/{playlist_id}"
-
-    query_url = url + query
-    result = get(query_url, headers=headers)
-    json_result = json.loads(result.content)
-
+def get_avg_popularity(result, json_result):
     sum = 0
     num_tracks = 0
+
     for track in json_result["tracks"]["items"]:
         result = track["track"]
         sum += result["popularity"]
         num_tracks += 1
-
+    
     return sum // num_tracks
 
 
-def get_playlist_image(playlist_name: str):
+def get_name(content_type = "track", content_name = ""):
     token = get_token()
-    playlist_result = user_search(token, playlist_name, "playlist")
-    if not playlist_result:
-        return None
-    return playlist_result["images"][0]["url"]
-    
+    result = user_search(token, content_name, search_type=content_type)
+    name = result["name"]
 
-def get_playlist_name(playlist_name: str):
+    if content_type != "playlist":
+        name = name + ' - ' + result["artists"][0]["name"]
+
+    return name
+
+
+def get_image(content_type = "track", content_name = ""):
     token = get_token()
-    playlist_result = user_search(token, playlist_name, "playlist")
-    if not playlist_result:
-        return None
-    return playlist_result["name"]
+    result = user_search(token, content_name, search_type=content_type)
+
+    if content_type == "track":
+        return result["album"]["images"][0]["url"]
+    else:
+        return result["images"][0]["url"]
 
 
 def user_search(token, track_name, search_type = "track"):
@@ -186,7 +112,3 @@ def user_search(token, track_name, search_type = "track"):
         return None
     
     return json_result[0]
-
-
-# print(get_playlist_popularity("Top 50 - USA"))
-# print(get_playlist_popularity("VAPORWAVE CLASSICS"))

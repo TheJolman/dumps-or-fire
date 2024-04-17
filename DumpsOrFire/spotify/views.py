@@ -83,8 +83,8 @@ def rate(request):
             s_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)
 
-            if s_type == 'track':
-                result = gr.get_track_popularity("", id=id)
+            if s_type == 'track' or s_type == 'album' or s_type == 'playlist':
+                result = gr.get_popularity(content_type = s_type, input_id = id)
                 context['rating'] = result
 
                 desc, img = fr.format_rating(result, type = 'Track')

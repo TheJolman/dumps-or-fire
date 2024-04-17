@@ -4,7 +4,7 @@ def get_url_id(url: str) -> str:
     '''uses urllib.parse.urlparse to extract the playlist id from a spotify playlist url'''
     parsed_url = urlparse(url)
     path_parts = parsed_url.path.split("/")
-    return path_parts[2][:22]
+    return path_parts[2][:22] # id seems to always be 22 characters long
 
 def get_url_type(url: str) -> str:
     '''uses urllib.parse.urlparse to extract the content type from a spotify playlist url'''

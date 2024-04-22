@@ -43,7 +43,6 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
         return None
     
     token = get_token()
-    print(f"Popularity Token: {token}")
     if content_name != "" and input_id == "":
         result = user_search(token, content_name, search_type=content_type)
         id = result["id"]
@@ -79,7 +78,6 @@ def get_avg_popularity(result, json_result):
 
 def get_name(content_type = "track", content_name = ""):
     token = get_token()
-    print(f"Name Token: {token}")
     result = user_search(token, content_name, search_type=content_type)
     name = result["name"]
 
@@ -91,7 +89,6 @@ def get_name(content_type = "track", content_name = ""):
 
 def get_image(content_type = "track", content_name = ""):
     token = get_token()
-    print(f"Image Token: {token}")
     result = user_search(token, content_name, search_type=content_type)
 
     if content_type == "track":

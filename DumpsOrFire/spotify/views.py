@@ -31,12 +31,12 @@ def rate(request):
         if search_type == 'track':
             # track search
             try:
-                result = gr.get_popularity(content_name = user_input)
+                popularity, name, image = gr.get_popularity(content_name = user_input)
             except:
                 context['error'] = f"Error fetching data from Spotify API, please try a different track or again later."
                 return render(request, 'spotify/rate.html', context)
 
-            if result is not None:
+            if popularity is not None:
                 '''get rating from api and description from json file'''
                 context['rating'] = popularity
 
@@ -53,13 +53,13 @@ def rate(request):
         elif search_type == 'album':
             # album search
             try:
-                result =  gr.get_popularity(content_type = "album", content_name = user_input)
+                popularity, name, image =  gr.get_popularity(content_type = "album", content_name = user_input)
             except:
                 context['error'] = f"Error fetching data from Spotify API, please try a different album or again later."
                 return render(request, 'spotify/rate.html', context)
 
-            if result is not None:
-                context['rating'] = result
+            if popularity is not None:
+                context['rating'] = popularity
 
                 desc, img = fr.format_rating(popularity, type = 'album')
 
@@ -75,12 +75,12 @@ def rate(request):
         elif search_type == 'playlist':
             # playlist search
             try:
-                result = gr.get_popularity(content_type = "playlist", content_name = user_input)
+                popularity, name, image = gr.get_popularity(content_type = "playlist", content_name = user_input)
             except:
                 context['error'] = f"Error fetching data from Spotify API, please try a different playlist or again later."
                 return render(request, 'spotify/rate.html', context)
-            if result is not None:
-                context['rating'] = result
+            if popularity is not None:
+                context['rating'] = popularity
 
                 desc, img = fr.format_rating(popularity, type = 'playlist')
 

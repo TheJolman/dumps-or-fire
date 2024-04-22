@@ -30,51 +30,51 @@ def rate(request):
 
         if search_type == 'track':
             # track search
-            result = gr.get_popularity(content_name = user_input)
-            if result is not None:
+            popularity, name, image = gr.get_popularity(content_name = user_input)
+            if popularity is not None:
                 '''get rating from api and description from json file'''
-                context['rating'] = result
+                context['rating'] = popularity
 
-                desc, img = fr.format_rating(result, type = 'track')
+                desc, img = fr.format_rating(popularity, type = 'track')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
-                context['image'] = gr.get_image(content_name=user_input)
-                context['name'] = gr.get_name(content_name=user_input)
+                context['image'] = image
+                context['name'] = name
             else:
                 context['error'] = f"No result with name {user_input} found."
 
         elif search_type == 'album':
             # album search
-            result =  gr.get_popularity(content_type = "album", content_name = user_input)
-            if result is not None:
-                context['rating'] = result
+            popularity, name, image =  gr.get_popularity(content_type = "album", content_name = user_input)
+            if popularity is not None:
+                context['rating'] = popularity
 
-                desc, img = fr.format_rating(result, type = 'album')
+                desc, img = fr.format_rating(popularity, type = 'album')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
-                context['image'] = gr.get_image(content_type="album", content_name=user_input)
-                context['name'] = gr.get_name(content_type="album", content_name=user_input)
+                context['image'] = image
+                context['name'] = name
             else:
                 context['error'] = f"No result with name {user_input} found."
 
 
         elif search_type == 'playlist':
             # playlist search
-            result = gr.get_popularity(content_type = "playlist", content_name = user_input)
-            if result is not None:
-                context['rating'] = result
+            popularity, name, image = gr.get_popularity(content_type = "playlist", content_name = user_input)
+            if popularity is not None:
+                context['rating'] = popularity
 
-                desc, img = fr.format_rating(result, type = 'playlist')
+                desc, img = fr.format_rating(popularity, type = 'playlist')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
-                context['image'] = gr.get_image(content_type="playlist", content_name=user_input)
-                context['name'] = gr.get_name(content_type="playlist", content_name=user_input)
+                context['image'] = image
+                context['name'] = name
             else:
                 context['error'] = f"No result with name {user_input} found."
 
@@ -84,13 +84,15 @@ def rate(request):
             id = up.get_url_id(user_input)
 
             if s_type == 'track':
-                result = gr.get_track_popularity("", id=id)
-                context['rating'] = result
+                popularity, name, image = gr.get_popularity("", id=id)
+                context['rating'] = popularity
 
-                desc, img = fr.format_rating(result, type = 'Track')
+                desc, img = fr.format_rating(popularity, type = 'Track')
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
+                context['image'] = image
+                context['name'] = name
 
 
     return render(request, 'spotify/rate.html', context)

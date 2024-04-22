@@ -49,7 +49,7 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
     else:
         id = input_id
 
-    """ Search for an track and return items associated with track """
+    """ Search for content and return items associated with content"""
     url = f"https://api.spotify.com/v1/{content_type}s"
     headers = get_auth_header(token)
     query = f"/{id}"
@@ -58,10 +58,24 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
     result = get(query_url, headers=headers)
     json_result = json.loads(result.content)
 
+    """ Get content popularity """
     if content_type == "playlist":
-        return get_avg_popularity(result, json_result)
+        popularity = get_avg_popularity(result, json_result)
+    else:
+        popularity = json_result['popularity']
 
-    return json_result['popularity']
+    """ Get name of content """
+    name = json_result["name"]
+    if content_type != "playlist":
+        name = name + ' - ' + json_result["artists"][0]["name"]
+
+    """ Get image of the content"""
+    if content_type == "track":
+        image = json_result["album"]["images"][0]["url"]
+    else:
+        image = json_result["images"][0]["url"]
+
+    return popularity, name, image
     
 
 def get_avg_popularity(result, json_result):
@@ -74,27 +88,6 @@ def get_avg_popularity(result, json_result):
         num_tracks += 1
     
     return sum // num_tracks
-
-
-def get_name(content_type = "track", content_name = ""):
-    token = get_token()
-    result = user_search(token, content_name, search_type=content_type)
-    name = result["name"]
-
-    if content_type != "playlist":
-        name = name + ' - ' + result["artists"][0]["name"]
-
-    return name
-
-
-def get_image(content_type = "track", content_name = ""):
-    token = get_token()
-    result = user_search(token, content_name, search_type=content_type)
-
-    if content_type == "track":
-        return result["album"]["images"][0]["url"]
-    else:
-        return result["images"][0]["url"]
 
 
 def user_search(token, track_name, search_type = "track"):

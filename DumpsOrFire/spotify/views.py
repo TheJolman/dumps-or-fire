@@ -35,7 +35,7 @@ def rate(request):
                 '''get rating from api and description from json file'''
                 context['rating'] = result
 
-                desc, img = fr.format_rating(result, type = 'Track')
+                desc, img = fr.format_rating(result, type = 'track')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -51,7 +51,7 @@ def rate(request):
             if result is not None:
                 context['rating'] = result
 
-                desc, img = fr.format_rating(result, type = 'Album')
+                desc, img = fr.format_rating(result, type = 'album')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"
@@ -68,7 +68,7 @@ def rate(request):
             if result is not None:
                 context['rating'] = result
 
-                desc, img = fr.format_rating(result, type = 'Playlist')
+                desc, img = fr.format_rating(result, type = 'playlist')
 
                 context['description'] =  desc
                 context['reaction'] = f"static/spotify/rating_reaction/{img}"

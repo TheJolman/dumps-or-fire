@@ -22,8 +22,6 @@ def validate_url(url: str) -> bool:
         return False
     if path_parts[2][:22].isalnum() == False:
         return False
-    # if len(path_parts[2]) != 22:
-    #     return False
     if parsed_url.netloc != 'open.spotify.com':
         return False
     return True

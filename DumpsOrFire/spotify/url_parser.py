@@ -11,3 +11,19 @@ def get_url_type(url: str) -> str:
     parsed_url = urlparse(url)
     path_parts = parsed_url.path.split("/")
     return path_parts[1]
+
+def validate_url(url: str) -> bool:
+    '''checks if the url is a valid spotify playlist url'''
+    parsed_url = urlparse(url)
+    path_parts = parsed_url.path.split("/")
+    if len(path_parts) != 3:
+        return False
+    if path_parts[1] not in ['track', 'album', 'playlist']:
+        return False
+    if path_parts[2][:22].isalnum() == False:
+        return False
+    # if len(path_parts[2]) != 22:
+    #     return False
+    if parsed_url.netloc != 'open.spotify.com':
+        return False
+    return True

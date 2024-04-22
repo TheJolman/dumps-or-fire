@@ -80,16 +80,23 @@ def rate(request):
 
         elif search_type == 'link':
             # link search
+
+            # validate url
+            if not up.validate_url(user_input):
+                context['error'] = "Invalid Spotify link, please try again with a valid link."
+                return render(request, 'spotify/rate.html', context)
+            #
             s_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)
 
             if s_type == 'track' or s_type == 'album' or s_type == 'playlist':
                 result = gr.get_popularity(content_type = s_type, input_id = id)
-                context['rating'] = result
+                if result is not None:
+                    context['rating'] = result
 
-                desc, img = fr.format_rating(result, type = 'Track')
-                context['description'] =  desc
-                context['reaction'] = f"static/spotify/rating_reaction/{img}"
+                    desc, img = fr.format_rating(result, type = 'Track')
+                    context['description'] =  desc
+                    context['reaction'] = f"static/spotify/rating_reaction/{img}"
 
 
 

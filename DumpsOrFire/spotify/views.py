@@ -90,7 +90,12 @@ def rate(request):
             id = up.get_url_id(user_input)
 
             if s_type == 'track' or s_type == 'album' or s_type == 'playlist':
-                result = gr.get_popularity(content_type = s_type, input_id = id)
+                try:
+                    result = gr.get_popularity(content_type = s_type, input_id = id)
+                except:
+                    context['error'] = f"Error fetching data from Spotify API, please try a different URL or again later."
+                    return render(request, 'spotify/rate.html', context)
+
                 if result is not None:
                     context['rating'] = result
 

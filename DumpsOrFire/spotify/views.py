@@ -94,7 +94,7 @@ def rate(request):
                 if result is not None:
                     context['rating'] = result
 
-                    desc, img = fr.format_rating(result, type = 'Track')
+                    desc, img = fr.format_rating(result, type = s_type)
                     context['description'] =  desc
                     context['reaction'] = f"static/spotify/rating_reaction/{img}"
 

@@ -85,7 +85,7 @@ def rate(request):
             if not up.validate_url(user_input):
                 context['error'] = "Invalid Spotify link, please try again with a valid link."
                 return render(request, 'spotify/rate.html', context)
-            #
+
             s_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)
 

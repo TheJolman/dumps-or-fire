@@ -24,7 +24,7 @@ def assign_letter_grade(pop_rating = 0):
     else:
         return 'Z'
     
-def get_description(letter_rating, type = 'Track'):
+def get_description(letter_rating, type = 'track'):
     fs = FileSystemStorage(location=settings.STATIC_ROOT)
     file_path = fs.path('spotify/descriptions.json')
 
@@ -34,9 +34,9 @@ def get_description(letter_rating, type = 'Track'):
     json_data.close()
 
     desc = data[letter_rating][type]
-    img = data[letter_rating]['Reaction']
+    img = data[letter_rating]['reaction']
 
     return desc, img
 
-def format_rating(generated_rating = 0, type = 'Track'):
+def format_rating(generated_rating = 0, type = 'track'):
     return get_description(assign_letter_grade(generated_rating), type)

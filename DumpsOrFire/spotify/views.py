@@ -1,10 +1,14 @@
 from django.shortcuts import render
-from . import generate_rating as gr
+from django.http import HttpResponse
 
+from . import generate_rating as gr
 from . import format_rating as fr
 from . import url_parser as up
 
 # Create your views here.
+
+def favicon(request):
+    return HttpResponse(status=204)
 
 def index(request):
     return render(request, 'spotify/index.html')

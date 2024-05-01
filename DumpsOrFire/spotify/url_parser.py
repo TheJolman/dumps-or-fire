@@ -20,7 +20,7 @@ def validate_url(url: str) -> bool:
         return False
     if path_parts[1] not in ['track', 'album', 'playlist']:
         return False
-    if path_parts[2][:22].isalnum():
+    if not path_parts[2][:22].isalnum():
         return False
     if parsed_url.netloc != 'open.spotify.com':
         return False

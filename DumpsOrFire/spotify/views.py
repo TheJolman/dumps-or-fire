@@ -40,9 +40,9 @@ def rate(request):
         result = None
         try:
             if search_type == 'link':
-                result = gr.get_popularity(content_type = search_type, input_id = id)
+                result = gr.get_popularity(content_type = search_type, content_name = user_input, input_id = id)
             else:
-                result = gr.get_popularity(content_name = user_input)   # want empty id paramter unless it's a link
+                result = gr.get_popularity(content_type = search_type, content_name = user_input)   # want empty id paramter unless it's a link
 
         except Exception as e:
             print(str(e))

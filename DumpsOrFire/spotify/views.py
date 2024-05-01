@@ -33,7 +33,7 @@ def rate(request):
             try:
                 popularity, name, image = gr.get_popularity(content_name = user_input)
             except:
-                context['error'] = f"Error fetching data from Spotify API, please try a different track or again later."
+                context['error'] = "Error fetching data from Spotify API, please try a different track or again later."
                 return render(request, 'spotify/rate.html', context)
 
             if popularity is not None:
@@ -55,7 +55,7 @@ def rate(request):
             try:
                 popularity, name, image =  gr.get_popularity(content_type = "album", content_name = user_input)
             except:
-                context['error'] = f"Error fetching data from Spotify API, please try a different album or again later."
+                context['error'] = "Error fetching data from Spotify API, please try a different album or again later."
                 return render(request, 'spotify/rate.html', context)
 
             if popularity is not None:
@@ -77,7 +77,7 @@ def rate(request):
             try:
                 popularity, name, image = gr.get_popularity(content_type = "playlist", content_name = user_input)
             except:
-                context['error'] = f"Error fetching data from Spotify API, please try a different playlist or again later."
+                context['error'] = "Error fetching data from Spotify API, please try a different playlist or again later."
                 return render(request, 'spotify/rate.html', context)
             if popularity is not None:
                 context['rating'] = popularity
@@ -107,7 +107,7 @@ def rate(request):
                 try:
                     popularity, name, image = gr.get_popularity(content_type = s_type, input_id = id)
                 except:
-                    context['error'] = f"Error fetching data from Spotify API, please try a different URL or again later."
+                    context['error'] = "Error fetching data from Spotify API, please try a different URL or again later."
                     return render(request, 'spotify/rate.html', context)
 
                 if popularity is not None:

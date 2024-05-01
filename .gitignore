@@ -1,5 +1,4 @@
 # Python related
-*.py[cod]
 __pycache__/
 *.pyo
 *.pyd
@@ -18,6 +17,9 @@ __pycache__/
 
 # Django related
 *.log
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -41,6 +43,3 @@ Thumbs.db
 .idea/
 *.swp
 *~
-
-# SQLite database file 
-*.sqlite3

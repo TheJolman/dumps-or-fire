@@ -1,6 +1,8 @@
 import base64
 from requests import post, get
 import json
+# import spotipy
+# from spotipy.oauth2 import SpotifyClientCredentials
 
 from django.conf import settings
 
@@ -8,6 +10,8 @@ from django.conf import settings
 
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
+# client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
+# sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
 def get_token():

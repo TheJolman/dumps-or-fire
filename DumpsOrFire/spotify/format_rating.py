@@ -1,5 +1,6 @@
 import json
-from django.core.files.storage import FileSystemStorage
+import os
+# from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 def assign_letter_grade(pop_rating = 0):
@@ -29,8 +30,9 @@ def get_description(letter_rating, type = 'track'):
     """
     Gets description and image path from json file based on letter grade given by assign_letter_grade
     """
-    fs = FileSystemStorage(location=settings.STATIC_ROOT)
-    file_path = fs.path('spotify/descriptions.json')
+    # fs = FileSystemStorage(location=settings.STATIC_URL)
+    # file_path = fs.path('spotify/descriptions.json')
+    file_path = os.path.join(settings.BASE_DIR, 'spotify', 'static', 'spotify', 'descriptions.json')
 
     json_data = open(file_path, 'r')
     data = json.load(json_data)

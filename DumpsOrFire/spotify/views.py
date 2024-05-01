@@ -30,13 +30,17 @@ def rate(request):
 
         if search_type == 'track':
             # track search
+            result = None
             try:
-                popularity, name, image = gr.get_popularity(content_name = user_input)
-            except:
+                result = gr.get_popularity(content_name = user_input)
+            except Exception as e:
                 context['error'] = "Error fetching data from Spotify API, please try a different track or again later."
+                print(str(e))
                 return render(request, 'spotify/rate.html', context)
 
-            if popularity is not None:
+            if result is not None:
+                popularity, name, image = result
+
                 '''get rating from api and description from json file'''
                 context['rating'] = popularity
 
@@ -47,18 +51,18 @@ def rate(request):
 
                 context['image'] = image
                 context['name'] = name
-            else:
-                context['error'] = f"No result with name {user_input} found."
 
         elif search_type == 'album':
             # album search
             try:
-                popularity, name, image =  gr.get_popularity(content_type = "album", content_name = user_input)
-            except:
+                result =  gr.get_popularity(content_type = "album", content_name = user_input)
+            except Exception as e:
+                print(str(e))
                 context['error'] = "Error fetching data from Spotify API, please try a different album or again later."
                 return render(request, 'spotify/rate.html', context)
 
-            if popularity is not None:
+            if result is not None:
+                popularity, name, image = result
                 context['rating'] = popularity
 
                 desc, img = fr.format_rating(popularity, type = 'album')
@@ -75,11 +79,13 @@ def rate(request):
         elif search_type == 'playlist':
             # playlist search
             try:
-                popularity, name, image = gr.get_popularity(content_type = "playlist", content_name = user_input)
-            except:
+                result = gr.get_popularity(content_type = "playlist", content_name = user_input)
+            except Exception as e:
+                print(str(e))
                 context['error'] = "Error fetching data from Spotify API, please try a different playlist or again later."
                 return render(request, 'spotify/rate.html', context)
-            if popularity is not None:
+            if result is not None:
+                popularity, name, image = result
                 context['rating'] = popularity
 
                 desc, img = fr.format_rating(popularity, type = 'playlist')
@@ -105,12 +111,14 @@ def rate(request):
 
             if s_type == 'track' or s_type == 'album' or s_type == 'playlist':
                 try:
-                    popularity, name, image = gr.get_popularity(content_type = s_type, input_id = id)
-                except:
+                    result = gr.get_popularity(content_type = s_type, input_id = id)
+                except Exception as e:
+                    print(str(e))
                     context['error'] = "Error fetching data from Spotify API, please try a different URL or again later."
                     return render(request, 'spotify/rate.html', context)
 
-                if popularity is not None:
+                if result is not None:
+                    popularity, name, image = result
                     context['rating'] = popularity
 
                     desc, img = fr.format_rating(popularity, type = s_type)

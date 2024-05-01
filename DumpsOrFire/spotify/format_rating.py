@@ -29,7 +29,7 @@ def get_description(letter_rating, type = 'track'):
     """
     Gets description and image path from json file based on letter grade given by assign_letter_grade
     """
-    file_path = os.path.join(settings.BASE_DIR, 'spotify', 'static', 'spotify', 'descriptions.json')
+    file_path = os.path.join(settings.STATIC_ROOT, 'spotify', 'descriptions.json')
 
     json_data = open(file_path, 'r')
     data = json.load(json_data)

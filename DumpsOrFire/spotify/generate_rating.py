@@ -44,6 +44,8 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
     token = get_token()
     if content_name != "" and input_id == "":
         result = user_search(token, content_name, search_type=content_type)
+        if result is None:
+            return None
         id = result["id"]
     else:
         id = input_id

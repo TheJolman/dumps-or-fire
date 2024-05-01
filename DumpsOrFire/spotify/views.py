@@ -33,16 +33,13 @@ def rate(request):
                 return render(request, 'spotify/rate.html', context)
 
             search_type = up.get_url_type(user_input)
-            id = up.get_url_id(user_input)
+            id = up.get_url_id(user_input)  # is empty string if not url
 
 
         '''get rating from api and description from json file'''
         result = None
         try:
-            if search_type == 'link':
-                result = gr.get_popularity(content_type = search_type, content_name = user_input, input_id = id)
-            else:
-                result = gr.get_popularity(content_type = search_type, content_name = user_input)   # want empty id paramter unless it's a link
+            result = gr.get_popularity(content_type = search_type, content_name = user_input, input_id = id)
 
         except Exception as e:
             print(str(e))
@@ -62,7 +59,5 @@ def rate(request):
 
             context['image'] = image
             context['name'] = name
-
-        
 
     return render(request, 'spotify/rate.html', context)

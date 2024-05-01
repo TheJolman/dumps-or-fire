@@ -55,7 +55,7 @@
                 <div class="rating-box">
                     <h5 class="circular-text">Popularity Rating:</h5>
                     <h3 style="font-family='circular'">{{ rating }}/100</h3>
-                    <br><img id="HideImg" src={{ reaction }} alt="alt text" onerror="hideImg()" width="65%" height="70%">
+                    <br><img id="HideImg" src="{{ reaction }}" alt="alt text" onerror="hideImg()" width="65%" height="70%">
                     
                     <p class="circular-text">{{ description }}</p>
                 </div>
@@ -65,7 +65,7 @@
                 <!-- insert image here -->
                 <div class="image-container">
                     <br><h5 class="circular-text">{{ name }}</h5>
-                    <img id="HideImg2" src={{ image }} alt="alt text" onerror="hideImg2()">
+                    <img id="HideImg2" src="{{ image }}" alt="alt text" onerror="hideImg2()">
                 </div>
             </div>
         </div>

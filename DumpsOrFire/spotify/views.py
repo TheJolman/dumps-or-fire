@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from . import generate_rating as gr
 
-# from django.http import JsonResponse
-
 from . import format_rating as fr
 from . import url_parser as up
 

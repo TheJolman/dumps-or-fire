@@ -2,9 +2,10 @@ import json
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-# import rating_reaction
-
 def assign_letter_grade(pop_rating = 0):
+    """
+    Assigns letter grade based on 0-100 popularity rating from Spotify API
+    """
     r = pop_rating
 
     if r > 90:
@@ -25,6 +26,9 @@ def assign_letter_grade(pop_rating = 0):
         return 'Z'
     
 def get_description(letter_rating, type = 'track'):
+    """
+    Gets description and image path from json file based on letter grade given by assign_letter_grade
+    """
     fs = FileSystemStorage(location=settings.STATIC_ROOT)
     file_path = fs.path('spotify/descriptions.json')
 
@@ -39,4 +43,7 @@ def get_description(letter_rating, type = 'track'):
     return desc, img
 
 def format_rating(generated_rating = 0, type = 'track'):
+    """
+    Uses get_description with letter grade as input to return description and image path to view
+    """
     return get_description(assign_letter_grade(generated_rating), type)

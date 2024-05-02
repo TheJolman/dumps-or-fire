@@ -1,3 +1,4 @@
 django==5.0.2
 social-auth-app-django
 spotipy
+python-dotenv

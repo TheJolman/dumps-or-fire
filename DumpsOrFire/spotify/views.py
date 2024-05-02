@@ -24,11 +24,11 @@ def rate(request):
             context['error'] = "Search query too long, please try again with a shorter query."
             return render(request, 'spotify/rate.html', context)
 
-
         context['search_type'] = search_type
         id = ""
         
-
+        # if user provides a link we can deconstruct the URL and use the id to search the API.
+        # Otherwise we use the search term provided and let the function get the associated id from the API.
         if search_type == 'link':
             if not up.validate_url(user_input):
                 context['error'] = "Invalid Spotify link, please try again with a valid link."
@@ -38,7 +38,7 @@ def rate(request):
             id = up.get_url_id(user_input)  # is empty string if not url
 
 
-        '''get rating from api and description from json file'''
+        # get rating from api and description from json file
         result = None
         try:
             result = gr.get_popularity(content_type = search_type, content_name = user_input, input_id = id)

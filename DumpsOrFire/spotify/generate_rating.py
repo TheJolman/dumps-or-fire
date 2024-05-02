@@ -1,15 +1,15 @@
 import base64
-from requests import post, get
 import json
 
 from django.conf import settings
+from requests import get, post
 
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
 
 
 def get_token():
-    """ Get Spotify token to access artist and track info """
+    """Get Spotify token to access artist and track info"""
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8")
     auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
@@ -17,7 +17,7 @@ def get_token():
     url = "https://accounts.spotify.com/api/token"
     headers = {
         "Authorization": "Basic " + auth_base64,
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
     }
 
     data = {"grant_type": "client_credentials"}
@@ -31,7 +31,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 
-def get_popularity(content_type = "track", content_name = "", input_id = ""):
+def get_popularity(content_type="track", content_name="", input_id=""):
     """
     Inputs: content_type (track, artist, or playlist), content_name (name of track, artist, or playlist), input_id (id of track, artist, or playlist from URL)
     Outputs: popularity rating, name of content, image of content
@@ -41,7 +41,7 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
     """
     if content_name == "" and input_id == "":
         return None
-    
+
     token = get_token()
 
     # Here we either use provided id or get one from the search
@@ -66,12 +66,12 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
     if content_type == "playlist":
         popularity = get_avg_popularity(result, json_result)
     else:
-        popularity = json_result['popularity']
+        popularity = json_result["popularity"]
 
     # Get name of content
     name = json_result["name"]
     if content_type != "playlist":
-        name = name + ' - ' + json_result["artists"][0]["name"]
+        name = name + " - " + json_result["artists"][0]["name"]
 
     # Get image of content
     if content_type == "track":
@@ -80,7 +80,7 @@ def get_popularity(content_type = "track", content_name = "", input_id = ""):
         image = json_result["images"][0]["url"]
 
     return popularity, name, image
-    
+
 
 def get_avg_popularity(result, json_result):
     """
@@ -93,11 +93,11 @@ def get_avg_popularity(result, json_result):
         result = track["track"]
         sum += result["popularity"]
         num_tracks += 1
-    
+
     return sum // num_tracks
 
 
-def user_search(token, track_name, search_type = "track"):
+def user_search(token, track_name, search_type="track"):
     """
     Search for a track and return items associated with track using spotify API
     """
@@ -108,9 +108,9 @@ def user_search(token, track_name, search_type = "track"):
     query_url = url + query
     result = get(query_url, headers=headers)
     json_result = json.loads(result.content)[f"{search_type}s"]["items"]
-    
+
     if len(json_result) == 0:
         print(f"No {search_type} with this name exists...")
         return None
-    
+
     return json_result[0]

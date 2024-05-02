@@ -31,7 +31,7 @@
         <form method="POST" action="{% url 'rate' %}">
             {% csrf_token %}
             <div class="form-group">
-                <input type="text" class="form-control" id="searchInput" name="user_input" placeholder="Enter a query..." autofocus>
+                <input type="text" class="form-control" id="searchInput" name="user_input" placeholder="Search for music..." autofocus>
             </div>
             <div class="form-group">
                 <select class="form-control" name="search_type">

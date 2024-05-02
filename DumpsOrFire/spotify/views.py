@@ -11,12 +11,20 @@ def favicon(request):
     return HttpResponse(status=204)
 
 def index(request):
+    """
+    This function is called when the user first accesses the website.
+    It loads the index page.
+    """
     return render(request, 'spotify/index.html')
 
 def rate(request):
+    """
+    This function is called when the user submits a search query.
+    It is responsible for getting the user input and calling the functions that will get the rating and description.
+    """
     context = {}
     if request.method == 'POST':
-        '''Get user input and change search type text in search box'''
+        # Get user input and change search type text in search box
         user_input = request.POST.get('user_input')
         search_type = request.POST.get('search_type')
 

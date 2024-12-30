@@ -46,3 +46,4 @@ Thumbs.db
 
 staticfiles/
 .mypy_cache
+.env

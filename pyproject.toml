@@ -1,0 +1,28 @@
+[project]
+name = "dumps-or-fire"
+version = "1.1.0"
+description = "Music Popularity Getter Website"
+authors = [
+    { name = "Joshua Holman", email = "jolman@duck.com" },
+    { name = "Brandon Cobb" },
+    { name = "Jarred Siriban" }
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "Django>=5.1.0",
+    "logger>=1.4",
+    "requests>=2.32.3",
+    "social-auth-app-django>=5.4.0",
+    "types-requests>=2.32.0.20241016",
+]
+
+[project.urls]
+Homepage = "https://github.com/thejolman/dumps-or-fire"
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.10",
+    "pytest>=8.3",
+    "mypy",
+]

@@ -1,83 +1,86 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+import logging
 
 import spotify.format_rating as fr
 import spotify.generate_rating as gr
 import spotify.url_parser as up
+from django.http import HttpResponse
+from django.shortcuts import render
+from spotify.generate_rating import SpotifyAPIError
+import logger
 
-# Create your views here.
-
+logger = logging.getLogger(__name__)
 
 def favicon(request):
     return HttpResponse(status=204)
 
 
 def index(request):
-    """
-    This function is called when the user first accesses the website.
-    It loads the index page.
-    """
+    """loads the index page."""
     return render(request, "spotify/index.html")
 
 
 def rate(request):
-    """
-    This function is called when the user submits a search query.
-    It is responsible for getting the user input and calling the functions that will get the rating and description.
-    """
+    """Handle rating requests for Spotify music content"""
     context = {}
-    if request.method == "POST":
+
+    if request.method != "POST":
+        return render(request, "spotify/rate.html", context)
+
+    try:
         # Get user input and change search type text in search box
-        user_input = request.POST.get("user_input")
-        search_type = request.POST.get("search_type")
+        user_input = request.POST.get("user_input").strip()
+        search_type = request.POST.get("search_type").strip()
 
-        if len(user_input) > 50 and search_type != "link":
-            context["error"] = (
-                "Search query too long, please try again with a shorter query."
-            )
-            return render(request, "spotify/rate.html", context)
+        if not user_input:
+            raise ValueError("No search query provided")
 
-        context["search_type"] = search_type
+        # Handle different search types
         id = ""
-
-        # if user provides a link we can deconstruct the URL and use the id to search the API.
-        # Otherwise we use the search term provided and let the function get the associated id from the API.
         if search_type == "link":
             if not up.validate_url(user_input):
-                context["error"] = (
-                    "Invalid Spotify link, please try again with a valid link."
-                )
-                return render(request, "spotify/rate.html", context)
+                  raise ValueError("Invalid Spotify link provided")
 
             search_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)  # is empty string if not url
 
+            if not search_type or not id:
+                raise ValueError("Could not parse Spotify URL")
+        else:
+            if len(user_input) > 50:
+                raise ValueError("Search query too long")
+
         # get rating from api and description from json file
-        result = None
-        try:
-            result = gr.get_popularity(
-                content_type=search_type, content_name=user_input, input_id=id
-            )
 
-        except Exception as e:
-            print(str(e))
-            context["error"] = (
-                "Error fetching data from Spotify API, please try a different track or again later."
-            )
-            return render(request, "spotify/rate.html", context)
+        result = gr.get_popularity(
+                  content_type=search_type,
+                  content_name=user_input,
+                  input_id=id
+                  )
 
-        if result is not None:
-            popularity, name, image = result
+        if result is None:
+            raise ValueError(f"No {search_type} found matching your search")
 
-            """get rating from api and description from json file"""
-            context["rating"] = popularity
+        popularity, name, image = result
+        desc, reaction_img = fr.format_rating(popularity, type=search_type)
 
-            desc, img = fr.format_rating(popularity, type=search_type)
+        context.update({
+                  "search_type": search_type,
+                  "rating": popularity,
+                  "description": desc,
+                  "reaction": f"static/spotify/rating_reaction/{reaction_img}",
+                  "image": image,
+                  "name": name
+                  })
+    except ValueError as e:
+        context["error"] = str(e)
+        logger.warning(f"Validation error: {str(e)}", exc_info=True)
 
-            context["description"] = desc
-            context["reaction"] = f"static/spotify/rating_reaction/{img}"
+    except SpotifyAPIError as e:
+        context["error"] = "Unable to fetch data from Spotify. Please try again later."
+        logger.error(f"Spotify API error: {str(e)}", exc_info=True)
 
-            context["image"] = image
-            context["name"] = name
+    except Exception as e:
+        context["error"] = "An unexpected error occurred. Please try again later."
+        logger.error(f"Unexpected error in rate view: {str(e)}", exc_info=True)
 
     return render(request, "spotify/rate.html", context)

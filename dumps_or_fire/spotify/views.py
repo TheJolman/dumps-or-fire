@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from . import format_rating as fr
-from . import generate_rating as gr
-from . import url_parser as up
+import spotify.format_rating as fr
+import spotify.generate_rating as gr
+import spotify.url_parser as up
 
 # Create your views here.
 

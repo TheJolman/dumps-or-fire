@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 
 from pathlib import Path
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +30,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jolman.pythonanywhere.com', '127.0.0.1']
+APP_NAME = os.environ.get("FLY_APP_NAME")
+ALLOWED_HOSTS = ['jolman.pythonanywhere.com', '127.0.0.1', f'{APP_NAME}.fly.dev']
 
 # Spotify
 SOCIAL_AUTH_SPOTIFY_ID = os.environ.get('SPOTIFY_CLIENT_ID')
@@ -135,6 +139,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'dumps_or_fire/favicon'),
+    os.path.join(BASE_DIR, 'spotify/static'),
 ]
 
 # Default primary key field type

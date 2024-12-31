@@ -1,13 +1,11 @@
 import json
 import os
-
+from django.contrib.staticfiles import finders
 from django.conf import settings
 
 
 def assign_letter_grade(pop_rating=0):
-    """
-    Assigns letter grade based on 0-100 popularity rating from Spotify API
-    """
+    """Assigns letter grade based on 0-100 popularity rating from Spotify API"""
     r = pop_rating
 
     if r > 90:
@@ -29,15 +27,19 @@ def assign_letter_grade(pop_rating=0):
 
 
 def get_description(letter_rating, type="track"):
-    """
-    Gets description and image path from json file based on letter grade given by assign_letter_grade
-    """
-    file_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
+    """Gets description and image path from json file"""
+    # file_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
 
-    json_data = open(file_path, "r")
-    data = json.load(json_data)
+    json_path = finders.find('spotify/descriptions.json')
 
-    json_data.close()
+    if not json_path:
+        json_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
+
+    # json_data = open(file_path, "r")
+    with open(json_path, "r") as json_data:
+        data = json.load(json_data)
+
+    # json_data.close()
 
     desc = data[letter_rating][type]
     img = data[letter_rating]["reaction"]
@@ -46,7 +48,5 @@ def get_description(letter_rating, type="track"):
 
 
 def format_rating(generated_rating=0, type="track"):
-    """
-    Uses get_description with letter grade as input to return description and image path to view
-    """
+    """Used to return letter grade and image to view"""
     return get_description(assign_letter_grade(generated_rating), type)

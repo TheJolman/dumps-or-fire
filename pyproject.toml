@@ -25,4 +25,6 @@ dev = [
     "black",
     "pytest",
     "mypy",
+    "types-requests",
+    "django-stubs",
 ]

@@ -69,7 +69,7 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     if content_name == "" and input_id == "":
         raise ValueError("Either content_name or input_id must be provided")
 
-    if content_type not in ["track", "artist", "playlist"]:
+    if content_type not in ["track", "album", "artist", "playlist"]:
         raise ValueError(f"Invalid content_type: {content_type}")
 
     try:

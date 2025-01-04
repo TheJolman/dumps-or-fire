@@ -12,7 +12,7 @@ requires-python = ">=3.10"
 dependencies = [
     "Django",
     "gunicorn>=23.0.0",
-    "logger",
+    "logging>=0.4.9.6",
     "python-dotenv",
     "requests",
     "social-auth-app-django",

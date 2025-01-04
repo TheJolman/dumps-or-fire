@@ -164,38 +164,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
     "handlers": {
-        # "file": {
-        #     "level": "WARNING",
-        #     "class": "logging.FileHandler",
-        #     "filename": "debug.log",
-        #     "formatter": "verbose",
-        # },
         "console": {
-            "level": "INFO",
             "class": "logging.StreamHandler",
-            "formatter": "verbose",
         },
     },
     "loggers": {
-        "": {  # Root logger
-            "handlers": ["console", "file"],
-            "level": "INFO",
-        },
-        "spotify": {  # app-specific logger
-            "handlers": ["console", "file"],
-            "level": "INFO",
-            "propagate": False,
-        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propogate': True,
+        }
     },
 }

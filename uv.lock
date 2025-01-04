@@ -292,7 +292,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "django" },
     { name = "gunicorn" },
-    { name = "logger" },
+    { name = "logging" },
     { name = "python-dotenv" },
     { name = "requests" },
     { name = "social-auth-app-django" },
@@ -314,7 +314,7 @@ requires-dist = [
     { name = "django" },
     { name = "django-stubs", marker = "extra == 'dev'" },
     { name = "gunicorn", specifier = ">=23.0.0" },
-    { name = "logger" },
+    { name = "logging", specifier = ">=0.4.9.6" },
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "python-dotenv" },
@@ -364,10 +364,10 @@ wheels = [
 ]
 
 [[package]]
-name = "logger"
-version = "1.4"
+name = "logging"
+version = "0.4.9.6"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/73/2f/b0d28eaa1e2c1cf64129f8da3fe701888d152677fec708cd0f13e8309e1e/logger-1.4.tar.gz", hash = "sha256:4ecac57133c6376fa215f0fe6b4dc4d60e4d1ad8be005cab4e8a702df682f8b3", size = 1187 }
+sdist = { url = "https://files.pythonhosted.org/packages/93/4b/979db9e44be09f71e85c9c8cfc42f258adfb7d93ce01deed2788b2948919/logging-0.4.9.6.tar.gz", hash = "sha256:26f6b50773f085042d301085bd1bf5d9f3735704db9f37c1ce6d8b85c38f2417", size = 96029 }
 
 [[package]]
 name = "mypy"

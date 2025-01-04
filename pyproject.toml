@@ -11,10 +11,12 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "Django",
+    "gunicorn>=23.0.0",
     "logger",
     "python-dotenv",
     "requests",
     "social-auth-app-django",
+    "whitenoise>=6.8.2",
 ]
 
 [project.urls]

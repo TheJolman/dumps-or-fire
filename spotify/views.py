@@ -6,7 +6,6 @@ import spotify.url_parser as up
 from django.http import HttpResponse
 from django.shortcuts import render
 from spotify.generate_rating import SpotifyAPIError
-import logger
 
 logger = logging.getLogger(__name__)
 

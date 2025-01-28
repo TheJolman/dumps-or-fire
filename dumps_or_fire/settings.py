@@ -170,10 +170,10 @@ LOGGING = {
         },
     },
     "loggers": {
-        '': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propogate': True,
+        "": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propogate": True,
         }
     },
 }

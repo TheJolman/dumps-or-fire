@@ -4,8 +4,13 @@ import json
 from django.conf import settings
 from requests import get, post
 
+import logging
+logger = logging.getLogger(__name__)
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
+
+logger.error(f"Spotify ID exists: {client_id is not None}")
+logger.error(f"Spotify Secret exists: {client_secret is not None}")
 
 class SpotifyAPIError(Exception):
     """Custom exception for Spotify API related errors"""
@@ -17,21 +22,29 @@ def get_token():
     Returns:
         json result with access token
     Raises:
-        SpotifyAPIError: If there's any issue getting the sporify access token
+        SpotifyAPIError: If there's any issue getting the spotify access token
     """
-    auth_string = client_id + ":" + client_secret
+
+    if not client_id or not client_secret:
+        raise SpotifyAPIError("Missing client credentials")
+
+    auth_string = f"{client_id.strip()}:{client_secret.strip()}"
     auth_bytes = auth_string.encode("utf-8")
-    auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
+    # auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
+    auth_base64 = base64.b64encode(auth_bytes).decode("utf-8")
 
     url = "https://accounts.spotify.com/api/token"
     headers = {
         "Authorization": "Basic " + auth_base64,
         "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "dumps-or-fire/1.1"
     }
 
     data = {"grant_type": "client_credentials"}
     try:
         result = post(url, headers=headers, data=data)
+        if result.status_code != 200:
+            print(f"Error response content: {result.content}")
         result.raise_for_status()
         json_result = json.loads(result.content)
 

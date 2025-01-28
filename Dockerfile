@@ -12,11 +12,14 @@ WORKDIR /code
 # Dependecies
 RUN pip install uv
 COPY pyproject.toml uv.lock /code/
-RUN uv export --format requirements-txt > requirements.txt
-RUN uv pip install -r requirements.txt --system
+RUN uv sync
+
+# RUN uv export --format requirements-txt > requirements.txt
+# RUN uv pip install -r requirements.txt --system
 
 COPY . /code
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
+RUN uv run manage.py collectstatic --noinput
 
 EXPOSE 8000
 

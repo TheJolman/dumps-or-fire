@@ -1,4 +1,6 @@
 # DumpsOrFire
+
+forked from [BCSchool/DumpsOrFire](https://github.com/BCSchool/DumpsOrFire)
 ### Find out how based your playlist is!
 
 1. Enter a song/album/playlist title or a url to any of the three

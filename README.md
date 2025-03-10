@@ -1,4 +1,4 @@
-# DumpsOrFire
+# Dumps or Fire
 
 forked from [BCSchool/DumpsOrFire](https://github.com/BCSchool/DumpsOrFire)
 ### Find out how based your playlist is!

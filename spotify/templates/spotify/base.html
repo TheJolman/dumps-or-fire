@@ -6,13 +6,13 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
-          content="Dumps Or Fire - Rate your music playlists, albums, and tracks using Spotify's API to see if your music taste is fire or just dumps.">
+          content="Dumps or Fire - Rate your music playlists, albums, and tracks using Spotify's API to see if your music taste is fire or just dumps.">
     <meta name="keywords"
           content="music rating, Spotify, playlist rating, music taste, music analysis">
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <title>
       {% block title %}
-        Dumps Or Fire
+        Dumps or Fire
       {% endblock title %}
     </title>
     <link rel="stylesheet"
@@ -25,7 +25,9 @@
     <div class="cover-container d-flex h-100 p-3 flex-column">
       <header class="header mb-auto">
         <div class="inner">
-          <h3 class="header-top">Dumps Or Fire</h3>
+          <h3 class="header-top">
+            <em>Dumps or Fire</em>
+          </h3>
           <nav class="nav nav-bar justify-content-center">
             <a class="nav-link {% block nav_home_active %}{% endblock nav_home_active %}"
                href="{% url 'index' %}">Home</a>

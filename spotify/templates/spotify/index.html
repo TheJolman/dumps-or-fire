@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Dumps or Fire - Home
+{% endblock title %}
 {% block nav_home_active %}
   active
 {% endblock nav_home_active %}
 {% block content %}
   <h1 class="cover-heading">
-    Welcome to <span class="text-1">Dumps</span> Or <span class="text-2">Fire!</span>
+    Welcome to <span class="text-1">Dumps</span> or <span class="text-2">Fire!</span>
   </h1>
   <p class="lead">
     Want to know if your playlist is fire or just a dumpster dive? Dumps Or Fire has the answer. Harnessing Spotify's API, this app will rate your music with no holds barred. Drop a title or share link and find out if your tunes are worth the hype.

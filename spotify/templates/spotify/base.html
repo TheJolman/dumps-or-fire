@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="Dumps or Fire - Rate your music playlists, albums, and tracks using Spotify's API to see if your music taste is fire or just dumps.">
+    <meta name="keywords"
+          content="music rating, Spotify, playlist rating, music taste, music analysis">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>
+      {% block title %}
+        Dumps or Fire
+      {% endblock title %}
+    </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{% static 'spotify/style.css' %}" rel="stylesheet">
+    {% block extra_css %}
+    {% endblock extra_css %}
+  </head>
+  <body class="text-center">
+    <div class="cover-container d-flex h-100 p-3 flex-column">
+      <header class="header mb-auto">
+        <div class="inner">
+          <h3 class="header-top">
+            <em>Dumps or Fire</em>
+          </h3>
+          <nav class="nav nav-bar justify-content-center">
+            <a class="nav-link {% block nav_home_active %}{% endblock nav_home_active %}"
+               href="{% url 'index' %}">Home</a>
+            <a class="nav-link {% block nav_rate_active %}{% endblock nav_rate_active %}"
+               href="{% url 'rate' %}">Rate</a>
+          </nav>
+        </div>
+      </header>
+      <main role="main" class="inner cover">
+        {% block content %}
+        {% endblock content %}
+      </main>
+      <footer class="footer mt-auto">
+        <div class="inner">
+          <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
+        </div>
+      </footer>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+  </body>
+</html>

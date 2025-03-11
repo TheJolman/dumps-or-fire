@@ -9,6 +9,7 @@ from spotify.generate_rating import SpotifyAPIError
 
 logger = logging.getLogger(__name__)
 
+
 def favicon(request):
     return HttpResponse(status=204)
 
@@ -37,7 +38,7 @@ def rate(request):
         id = ""
         if search_type == "link":
             if not up.validate_url(user_input):
-                  raise ValueError("Invalid Spotify link provided")
+                raise ValueError("Invalid Spotify link provided")
 
             search_type = up.get_url_type(user_input)
             id = up.get_url_id(user_input)  # is empty string if not url
@@ -51,10 +52,8 @@ def rate(request):
         # get rating from api and description from json file
 
         result = gr.get_popularity(
-                  content_type=search_type,
-                  content_name=user_input,
-                  input_id=id
-                  )
+            content_type=search_type, content_name=user_input, input_id=id
+        )
 
         if result is None:
             raise ValueError(f"No {search_type} found matching your search")
@@ -62,14 +61,16 @@ def rate(request):
         popularity, name, image = result
         desc, reaction_img = fr.format_rating(popularity, type=search_type)
 
-        context.update({
-                  "search_type": search_type,
-                  "rating": popularity,
-                  "description": desc,
-                  "reaction": f"static/spotify/rating_reaction/{reaction_img}",
-                  "image": image,
-                  "name": name
-                  })
+        context.update(
+            {
+                "search_type": search_type,
+                "rating": popularity,
+                "description": desc,
+                "reaction": f"static/spotify/rating_reaction/{reaction_img}",
+                "image": image,
+                "name": name,
+            }
+        )
     except ValueError as e:
         context["error"] = str(e)
         logger.warning(f"Validation error: {str(e)}", exc_info=True)

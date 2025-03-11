@@ -29,3 +29,14 @@ dev = [
     "types-requests",
     "django-stubs",
 ]
+
+[tool.djlint]
+exclude = ".venv"
+indent = 2
+files = ["spotify/static/spotify/style.css", "spotify/static/spotify/templates/spotify/"]
+format_css = true
+indent_size = 2
+format_js = true
+
+[tool.djlint.js]
+indent_size=5

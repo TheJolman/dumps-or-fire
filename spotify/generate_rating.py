@@ -5,6 +5,7 @@ from django.conf import settings
 from requests import get, post
 
 import logging
+
 logger = logging.getLogger(__name__)
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
@@ -12,9 +13,12 @@ client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
 logger.error(f"Spotify ID exists: {client_id is not None}")
 logger.error(f"Spotify Secret exists: {client_secret is not None}")
 
+
 class SpotifyAPIError(Exception):
     """Custom exception for Spotify API related errors"""
+
     pass
+
 
 def get_token():
     """Get Spotify token to access artist and track info
@@ -37,7 +41,7 @@ def get_token():
     headers = {
         "Authorization": "Basic " + auth_base64,
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "dumps-or-fire/1.1"
+        "User-Agent": "dumps-or-fire/1.1",
     }
 
     data = {"grant_type": "client_credentials"}
@@ -126,8 +130,11 @@ def get_popularity(content_type="track", content_name="", input_id=""):
 
         # Get image of content
         if content_type == "track":
-            if "album" not in json_result or "images" not in json_result["album"] \
-                or not json_result["album"]["images"]:
+            if (
+                "album" not in json_result
+                or "images" not in json_result["album"]
+                or not json_result["album"]["images"]
+            ):
                 raise SpotifyAPIError("Missing album image in API response")
             image = json_result["album"]["images"][0]["url"]
         else:

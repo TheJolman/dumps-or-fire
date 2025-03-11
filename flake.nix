@@ -1,5 +1,5 @@
 {
-  description = "Generic Dev Environment";
+  description = "Django app dev shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -19,6 +19,7 @@
           packages = with pkgs; [
             uv
             djlint
+            pre-commit
           ];
 
           shellHook = ''

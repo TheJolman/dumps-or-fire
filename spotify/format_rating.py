@@ -30,7 +30,7 @@ def get_description(letter_rating, type="track"):
     """Gets description and image path from json file"""
     # file_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
 
-    json_path = finders.find('spotify/descriptions.json')
+    json_path = finders.find("spotify/descriptions.json")
 
     if not json_path:
         json_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")

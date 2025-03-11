@@ -38,7 +38,7 @@
           </div>
         {% else %}
           <div class="rating-box">
-            <h5 class="circular-text">Popularity Rating:</h5>
+            <h5>Popularity Rating:</h5>
             <h3>
               {% if rating %}
                 {{ rating }} / 100
@@ -53,14 +53,14 @@
                  onerror="hideImg()"
                  width="65%"
                  height="70%">
-            <p class="circular-text">{{ description }}</p>
+            <p>{{ description }}</p>
           </div>
         {% endif %}
       </div>
       <div class="col">
         <div class="image-container">
           <br>
-          <h5 class="circular-text">{{ name }}</h5>
+          <h5>{{ name }}</h5>
           <img id="HideImg2"
                src="{{ image }}"
                alt="Music artwork"

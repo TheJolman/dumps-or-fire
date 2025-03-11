@@ -7,14 +7,16 @@
   active
 {% endblock nav_home_active %}
 {% block content %}
-  <h1 class="cover-heading">
-    Welcome to <span class="text-1">Dumps</span> or <span class="text-2">Fire!</span>
+  <h1 class="cover-heading title-top">
+    Welcome to <em><span class="title-highlight">Dumps or Fire</span></em>
   </h1>
   <p class="lead">
     Want to know if your music taste is great or garbage? Look no further: using Spotify's API, we'll rate your music with no holds barred. Drop a track, album or playlist and find out if your tunes are worth the hype.
   </p>
   <br>
   <p class="lead">
-    <a href="{% url 'rate' %}" class="btn btn-lg btn-secondary">Rate your music</a>
+    <a href="{% url 'rate' %}"
+       class="btn btn-lg btn-secondary"
+       class="rate-button">Rate your music</a>
   </p>
 {% endblock content %}

@@ -46,40 +46,23 @@
                 ❓/ 100
               {% endif %}
             </h3>
-            <br>
-            <img id="HideImg"
-                 src="{{ reaction }}"
-                 alt="Rating reaction"
-                 onerror="hideImg()"
-                 width="65%"
-                 height="70%">
-            <p>{{ description }}</p>
+            {% if reaction %}
+              <br>
+              <img src="{{ reaction }}" alt="Rating reaction" width="65%" height="70%">
+              <p>{{ description }}</p>
+            {% endif %}
           </div>
         {% endif %}
       </div>
       <div class="col">
         <div class="image-container">
           <br>
-          <h5>{{ name }}</h5>
-          <img id="HideImg2"
-               src="{{ image }}"
-               alt="Music artwork"
-               onerror="hideImg2()"
-               width="300"
-               height="300">
+          {% if image %}
+            <h5>{{ name }}</h5>
+            <img src="{{ image }}" alt="Music artwork" width="300" height="300">
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 {% endblock content %}
-{% block extra_js %}
-  <script>
-      function hideImg() {
-          document.getElementById("HideImg").style.display = "none";
-      }
-
-      function hideImg2() {
-          document.getElementById("HideImg2").style.display = "none";
-      }
-  </script>
-{% endblock extra_js %}

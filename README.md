@@ -9,4 +9,6 @@ forked from [BCSchool/DumpsOrFire](https://github.com/BCSchool/DumpsOrFire)
 
 ## [Link to site](https://jolman.pythonanywhere.com/) 
 
+Version 2 in progress at -> https://dumps-or-fire.fly.dev
+
 <img src="https://languagelog.ldc.upenn.edu/myl/DumpsterFire2.jpg" width="600" height="500" alt="dumpster fire">

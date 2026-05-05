@@ -10,11 +10,21 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   });
 
   const result = await res.json();
+
   let scoreContainer = document.getElementById("result");
   if (scoreContainer === null) {
     console.error("could not find score container")
     return;
   }
-  const pop = result[0].popularity;
-  scoreContainer.textContent = `Popularity: ${pop} / 100`
+  let artistText = document.createElement("p");
+  artistText.textContent = `Artist: ${result.artist}`
+  scoreContainer.appendChild(artistText);
+
+  let trackText = document.createElement("p");
+  trackText.textContent = `Track: ${result.track}`
+  scoreContainer.appendChild(trackText);
+
+  popRatio = document.createElement("p");
+  popRatio.textContent = `Popularity: ${result.popularity} / 100`;
+  scoreContainer.appendChild(popRatio);
 })

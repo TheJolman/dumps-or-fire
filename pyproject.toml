@@ -17,9 +17,6 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/thejolman/dumps-or-fire"
 
-dependencies = [
-]
-
 [dependency-groups]
 dev = [
     "ruff",

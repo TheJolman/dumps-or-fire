@@ -3,5 +3,6 @@ mkShell {
   nativeBuildInputs = [
     python314
     uv
+    just
   ];
 }

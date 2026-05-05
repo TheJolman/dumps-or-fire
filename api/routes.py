@@ -3,6 +3,6 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/things")
+@router.get("/popularity")
 async def get_things():
-    return [{"id": 1, "name": "thing1"}]
+    return [{"popularity": 80,}]

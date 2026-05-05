@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTML5 Boilerplate</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>HTML5 Boilerplate</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
 
-<body>
-  <h1>Page Title</h1>
-  <script src="scripts.js"></script>
-</body>
+	<body>
+		<div class="wrapper">
+			<h1>Page Title</h1>
+			<div class="content">
+				<form method="get" class="search-form">
+          <div class="search-form">
+            <label for="title">Song title: </label>
+            <input type="text" name="title" id="title" required />
+          </div>
+          <div class="search-form">
+            <label for="artist">Song artist: </label>
+            <input type="text" name="artist" id="artist" />
+          </div>
+          <div class="search-form">
+            <input type="submit" value="Search..."/>
+          </div>
+        </form>
 
+        <p id="result"></p>
+			</div>
+		</div>
+
+		<script src="app.js"></script>
+	</body>
 </html>

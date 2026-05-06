@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Dumps or Fire</title>
-		<link rel="stylesheet" href="style.css">
-	</head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dumps or Fire</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
 
-	<body>
-		<div class="wrapper">
-			<h1>Dumps or Fire</h1>
-			<div class="content">
-				<form method="get" class="search-form">
-          <div class="search-form">
-            <label for="title">Song title: </label>
-            <input type="text" name="title" id="title" required />
-          </div>
-          <div class="search-form">
-            <label for="artist">Song artist: </label>
-            <input type="text" name="artist" id="artist" />
-          </div>
-          <div class="search-form">
-            <input type="submit" value="Search..."/>
-          </div>
-        </form>
+<body>
+  <div class="wrapper">
+    <h1>Dumps or Fire</h1>
+    <div class="content">
+      <form method="get">
+        <label for="title">Song title: </label>
+        <input type="text" name="title" id="title" required />
+        <label for="artist">Song artist: </label>
+        <input type="text" name="artist" id="artist" />
+        <input type="submit" value="Search..." />
+      </form>
 
-        <div id="result"></div>
-			</div>
-		</div>
+      <div id="result"></div>
+    </div>
+  </div>
 
-		<script type="module" src="app.js"></script>
-	</body>
+  <script type="module" src="app.js"></script>
+</body>
+
 </html>

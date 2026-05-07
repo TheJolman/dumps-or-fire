@@ -11,10 +11,10 @@ function getOrCreate(id, tag = 'div', parent = document.body) {
 document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // const data = new FormData(e.target);
+  const data = new FormData(e.target);
   const response = await fetch("/api/popularity", {
-    method: "GET",
-    // body: JSON.stringify(Object.fromEntries(data)),
+    method: "POST",
+    body: JSON.stringify(Object.fromEntries(data)),
     headers: { "Content-Type": "application/json" },
   });
 

@@ -1,9 +1,11 @@
-function createAddChildText(parent) {
-  return (text) => {
-    let p = document.createElement("p");
-    p.textContent = text
-    parent.appendChild(p);
+function getOrCreate(id, tag = 'div', parent = document.body) {
+  let el = document.getElementById(id);
+  if (el === null) {
+    el = document.createElement(tag);
+    el.id = id;
+    parent.appendChild(el);
   }
+  return el;
 }
 
 document.querySelector("form").addEventListener("submit", async (e) => {
@@ -23,9 +25,8 @@ document.querySelector("form").addEventListener("submit", async (e) => {
     console.error("could not find score container")
     return;
   }
-  const addResults = createAddChildText(resultDiv)
 
-  addResults(`Artist: ${result.artist}`);
-  addResults(`Track: ${result.track}`);
-  addResults(`Popularity: ${result.popularity} / 100`);
+  getOrCreate('result-artist', 'p', resultDiv).textContent = `Artist: ${result.artist}`
+  getOrCreate('result-track', 'p', resultDiv).textContent = `Track: ${result.track}`
+  getOrCreate('result-pop', 'p', resultDiv).textContent = `Popularity: ${result.popularity} / 100`
 })

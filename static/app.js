@@ -12,13 +12,13 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   // const data = new FormData(e.target);
-  const res = await fetch("/api/popularity", {
+  const response = await fetch("/api/popularity", {
     method: "GET",
     // body: JSON.stringify(Object.fromEntries(data)),
     headers: { "Content-Type": "application/json" },
   });
 
-  const result = await res.json();
+  const result = await response.json();
 
   let resultDiv = document.getElementById("result");
   if (resultDiv === null) {
